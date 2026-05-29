@@ -14,7 +14,7 @@ export function placeOrder(input: any) {
       margin: { locked: 0, used: 0, released: 0 },
     };
   }
-
+  
   const leverage = input.leverage ?? 1;
   const requiredMargin = (input.price * input.quantity) / leverage;
 
