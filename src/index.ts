@@ -2,6 +2,8 @@ import express from "express";
 import cors from "cors";
 import { users, resetData } from "./store/memory";
 import { availableMemory } from "node:process";
+import { orderBook } from "./store/memory";
+import { placeOrder } from "./engine/orderEngine";
 
 const app = express();
 
@@ -50,6 +52,36 @@ app.get("/api/users/:userId/balance", (req, res) => {
     realizedPnl: user.realizedPnl,
   });
 });
+
+
+
+app.post("/api/orders", (req, res) => {
+  const result = placeOrder(req.body);
+  res.json(result);
+});
+app.get("/api/orderbook/:symbol", (req, res) => {
+  const symbol = req.params.symbol;
+  res.json({
+    symbol,
+    bids: orderBook.bids
+      .filter((order) => order.symbol === symbol)
+      .map((order) => ({
+        orderId: order.orderId,
+        userId: order.userId,
+        price: order.price,
+        quantity: order.remainingQuantity,
+      })),
+    asks: orderBook.asks
+      .filter((order) => order.symbol === symbol)
+      .map((order) => ({
+        orderId: order.orderId,
+        userId: order.userId,
+        price: order.price,
+        quantity: order.remainingQuantity,
+      })),
+  });
+});
+
 
 app.listen(process.env.PORT, () => {
   console.log(`Server is running on port ${process.env.PORT}`);

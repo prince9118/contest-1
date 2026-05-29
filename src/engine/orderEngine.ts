@@ -61,7 +61,6 @@ export function placeOrder(input: any) {
         return a.createdAt - b.createdAt;
       });
     }
-
     return {
       orderId: order.orderId,
       status: "resting",
@@ -75,7 +74,6 @@ export function placeOrder(input: any) {
       },
     };
   }
-
   return {
     orderId: order.orderId,
     status: "cancelled",
