@@ -1,14 +1,18 @@
 {
   "dependencies": {
     "cors": "^2.8.6",
+    "dotenv": "^17.4.2",
     "express": "^5.2.1"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "bun run src/index.ts"
+    "dev": "bun run src/index.ts",
+    "test": "vitest",
+    "test:run": "vitest run",
+    "test:watch": "vitest watch"
   },
   "devDependencies": {
     "@types/cors": "^2.8.19",
-    "@types/express": "^5.0.6"
+    "@types/express": "^5.0.6",
+    "vitest": "^4.1.7"
   }
 }
